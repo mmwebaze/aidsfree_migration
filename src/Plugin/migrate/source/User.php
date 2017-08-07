@@ -12,7 +12,7 @@ use Drupal\migrate\Plugin\migrate\source\SqlBase;
  * )
  *
  */
-class AidsfreeUser extends SqlBase {
+class User extends SqlBase {
 
   public function fields() {
     $fields = [

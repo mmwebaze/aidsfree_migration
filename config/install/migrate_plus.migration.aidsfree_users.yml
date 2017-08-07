@@ -1,4 +1,3 @@
-# Migration configuration for about content.
 id: aidsfree_users
 label: Aidsfree users from D7 site
 migration_group: aidsfree_users

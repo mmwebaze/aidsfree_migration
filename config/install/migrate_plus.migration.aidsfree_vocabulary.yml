@@ -1,0 +1,20 @@
+id: aidsfree_vocabulary
+label: Aidsfree vocabularies from D7 site
+migration_group: aidsfree_vocabulary
+source:
+  plugin: aidsfree_vocabulary_sql
+destination:
+  plugin: entity:taxonomy_vocabulary
+process:
+  vid: vid
+  machine_name: machine_name
+  name: name
+  description: details
+  hierarchy: hierarchy
+  module: module
+  weight: weight
+#migration_dependencies: {}
+dependencies:
+  enforced:
+    module:
+      - aidsfree_migration
