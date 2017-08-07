@@ -1,0 +1,9 @@
+name: aidsfree_migration
+type: module
+description: Module for migrating aidsfree d7 site content to d8
+core: 8.x
+package: Migration
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools

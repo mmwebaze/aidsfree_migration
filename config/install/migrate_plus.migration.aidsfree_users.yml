@@ -1,0 +1,31 @@
+# Migration configuration for about content.
+id: aidsfree_users
+label: Aidsfree users from D7 site
+migration_group: aidsfree_users
+migration_dependencies: {}
+source:
+  plugin: aidsfree_user_sql
+
+destination:
+  plugin: entity:user
+process:
+  name: name
+  uid: uid
+  status: status
+  created: created
+  access: access
+  login: login
+  timezone: timezone
+  init: init
+  mail: mail
+  pass: pass
+  roles:
+    plugin: default_value
+    default_value: 1
+
+dependencies:
+  module:
+    - node
+  enforced:
+    module:
+      - aidsfree_migration

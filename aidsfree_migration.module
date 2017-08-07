@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Contains aidsfree_migration.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function aidsfree_migration_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the aidsfree_migration module.
+    case 'help.page.aidsfree_migration':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module for migrating aidsfree d7 site to d8') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function aidsfree_migration_theme() {
+  return [
+    'aidsfree_migration' => [
+      'render element' => 'children',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function pix_migrate_uninstall() {
+  // Delete migrations from config table.
+  $migrations = [
+    'aidsfree_nodes',
+    'aidsfree_users',
+  ];
+  foreach ($migrations as $migration) {
+    Drupal::configFactory()->getEditable('migrate_plus.migration.' . $migration)->delete();
+  }
+}
