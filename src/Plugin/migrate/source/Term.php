@@ -9,7 +9,7 @@ use Drupal\migrate\Row;
  * Aidsfree terms from the d7 database
  *
  * @MigrateSource(
- *   id = "aidsfree_term_sql"
+ *   id = "aidsfree_terms_sql"
  * )
  *
  */
@@ -43,11 +43,12 @@ class Term extends SqlBase {
   }
   public function prepareRow(Row $row) {
     $parents = $this->select('taxonomy_term_hierarchy', 'tth')
-      ->fields('tth', array('tid', 'parent'))
+      ->fields('tth', array('parent', 'tid'))
       ->condition('tid', $row->getSourceProperty('tid'))
       ->execute()
       ->fetchCol();
     $row->setSourceProperty('parent', $parents);
+    var_dump($row);
     return parent::prepareRow($row);
   }
 }

@@ -1,0 +1,32 @@
+id: aidsfree_terms
+label: Aidsfree terms from D7 site
+migration_group: aidsfree_terms
+dependencies:
+  enforced:
+    module:
+      - aidsfree_migration
+source:
+  plugin: aidsfree_terms_sql
+process:
+  tid: tid
+  vid:
+    plugin: migration
+    migration: aidsfree_vocabulary_sql
+    source: vid
+  name: name
+  description: description
+  weight: weight
+  parent:
+    -
+      plugin: migration
+      migration: aidsfree_terms_sql
+      source: parent
+    -
+      plugin: skip_on_empty
+      method: process
+  changed: timestamp
+destination:
+  plugin: entity:taxonomy_term
+migration_dependencies:
+  required:
+    - aidsfree_migration
