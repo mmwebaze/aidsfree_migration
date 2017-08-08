@@ -42,13 +42,13 @@ class Term extends SqlBase {
     return $query;
   }
   public function prepareRow(Row $row) {
+    //var_dump($row);
     $parents = $this->select('taxonomy_term_hierarchy', 'tth')
       ->fields('tth', array('parent', 'tid'))
       ->condition('tid', $row->getSourceProperty('tid'))
       ->execute()
       ->fetchCol();
     $row->setSourceProperty('parent', $parents);
-    var_dump($row);
     return parent::prepareRow($row);
   }
 }

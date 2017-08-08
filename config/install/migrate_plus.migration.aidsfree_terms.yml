@@ -11,7 +11,7 @@ process:
   tid: tid
   vid:
     plugin: migration
-    migration: aidsfree_vocabulary_sql
+    migration: aidsfree_vocabulary
     source: vid
   name: name
   description: description
@@ -19,11 +19,11 @@ process:
   parent:
     -
       plugin: migration
-      migration: aidsfree_terms_sql
-      source: parent
+      migration: aidsfree_terms
     -
       plugin: skip_on_empty
-      method: process
+      method: row
+      source: parent
   changed: timestamp
 destination:
   plugin: entity:taxonomy_term
