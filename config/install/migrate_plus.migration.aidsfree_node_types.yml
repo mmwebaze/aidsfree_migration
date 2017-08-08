@@ -1,0 +1,26 @@
+id: aidsfree_node_type
+label: Aidsfree node types from D7 site
+migration_group: aidsfree_node_types
+source:
+  plugin: aidsfree_node_types_sql
+destination:
+  plugin: entity:node_type
+process:
+  type: type
+  name: name
+  base: base
+  module: module
+  description: description
+  help: help
+  has_title: has_title
+  title_label: title_label
+  custom: custom
+  modified: modified
+  locked: locked
+  disabled: disabled
+  orig_type: orig_type
+#migration_dependencies: {}
+dependencies:
+  enforced:
+    module:
+      - aidsfree_migration
