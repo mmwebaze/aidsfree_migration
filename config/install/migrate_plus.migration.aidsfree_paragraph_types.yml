@@ -1,0 +1,19 @@
+id: aidsfree_paragraph_type
+label: Aidsfree paragraph types from D7 site
+migration_group: aidsfree_paragraph_types
+source:
+  plugin: aidsfree_paragraph_types_sql
+destination:
+  plugin: entity:paragraphs_type
+process:
+  id: bundle
+  label: name
+  status: locked
+  langcode:
+    plugin: default_value
+    default_value: en
+#migration_dependencies: {}
+dependencies:
+  enforced:
+    module:
+      - aidsfree_migration
