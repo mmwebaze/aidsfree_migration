@@ -73,7 +73,10 @@ source:
 destination:
   plugin: entity:node
 process:
-  type: type
+  #type: type
+  type:
+    plugin: node_body_field_create
+    source: type
   title: title
   nid: nid
   vid: vid

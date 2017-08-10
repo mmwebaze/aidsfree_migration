@@ -16,6 +16,7 @@ use Drupal\migrate\Row;
  */
 class NodeBodyImport extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property){
+
     return $value;
   }
 }

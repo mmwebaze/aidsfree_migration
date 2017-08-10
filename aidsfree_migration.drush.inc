@@ -13,6 +13,14 @@ function aidsfree_migration_add_body_field(NodeTypeInterface $type, $label = 'Bo
 function list_node_types(){
   $types = [];
   $nodeTypes =  \Drupal\node\Entity\NodeType::loadMultiple();
+  foreach ($nodeTypes as $nodeType){
+    array_push($types, $nodeType->id());
+  }
+  return $types;
+}
+function add_field_body($type){
+  $types = [];
+  $nodeTypes =  \Drupal\node\Entity\NodeType::loadMultiple();
 
   foreach ($nodeTypes as $nodeType){
     array_push($types, $nodeType->id());
@@ -33,7 +41,6 @@ function list_node_types(){
       $field->save();
     }
     echo $nodeType->label();
-    die();
   }
   //echo count($types);
 }
@@ -47,6 +54,20 @@ function aidsfree_migration_drush_command() {
 }
 
 function drush_aidsfree_migration_create_body_field(){
-  //node_add_body_field();
-  list_node_types();
+  $nodeTypes =  \Drupal\node\Entity\NodeType::loadMultiple();
+
+  foreach ($nodeTypes as $key => $nodeType){
+    $field = FieldConfig::loadByName('node', $nodeType->id(), 'body');
+    if (empty($field)){
+      FieldConfig::create([
+        'field_name' => 'body',
+        'entity_type' => 'node',
+        'bundle' => $nodeType->id(),
+        'label' => 'body',
+        'field_type' => 'text_long',
+        'widget' => []
+      ])->save();
+      //var_dump($nodeType->id(). ' has no body field');
+    }
+  }
 }
