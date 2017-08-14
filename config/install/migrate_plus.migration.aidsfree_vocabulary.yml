@@ -1,3 +1,4 @@
+# Migration configuration for vocabularies
 id: aidsfree_vocabulary
 label: Aidsfree vocabularies from D7 site
 migration_group: aidsfree_vocabulary

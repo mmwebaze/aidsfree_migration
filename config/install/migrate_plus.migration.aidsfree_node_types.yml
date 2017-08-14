@@ -1,3 +1,4 @@
+## Migration configuration for node types
 id: aidsfree_node_type
 label: Aidsfree node types from D7 site
 migration_group: aidsfree_node_types

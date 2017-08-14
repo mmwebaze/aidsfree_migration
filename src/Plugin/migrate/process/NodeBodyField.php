@@ -2,13 +2,16 @@
 
 namespace Drupal\aidsfree_migration\Plugin\migrate\process;
 
+use Drupal\aidsfree_migration\Exception\MissingNodeTypeException;
+use Drupal\aidsfree_migration\Util\MigrationUtil;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
+use Drupal\node\Entity\NodeType;
 
 /**
- * Node body field creation
+ * Node body field creation plugin
  *
  * @MigrateProcessPlugin(
  *   id = "node_body_field_create"
@@ -17,21 +20,22 @@ use Drupal\migrate\Row;
  */
 class NodeBodyField extends ProcessPluginBase{
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property){
-    $nodeTypes =  \Drupal\node\Entity\NodeType::loadMultiple();
+    //$nodeTypes =  \Drupal\node\Entity\NodeType::loadMultiple();
 
-    foreach ($nodeTypes as $key => $nodeType){
-      $field = FieldConfig::loadByName('node', $nodeType->id(), 'body');
-      if (empty($field)){
-        FieldConfig::create([
-          'field_name' => 'body',
-          'entity_type' => 'node',
-          'bundle' => $nodeType->id(),
-          'label' => 'body',
-          'field_type' => 'text_long',
-          'widget' => []
-        ])->save();
-        //var_dump($nodeType->id(). ' has no body field');
-      }
+    if (!MigrationUtil::checkNodeTypeExists($value)){
+      throw new MissingNodeTypeException($value);
+    }
+    $field = FieldConfig::loadByName('node', $value, 'body');
+    if (empty($field)) {
+      FieldConfig::create([
+        'field_name' => 'body',
+        'entity_type' => 'node',
+        'status' => TRUE,
+        'bundle' => $value,
+        'label' => 'body',
+        'field_type' => 'text_long',
+        'widget' => []
+      ])->save();
     }
     return $value;
   }

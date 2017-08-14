@@ -1,3 +1,4 @@
+# Migration configuration for vocubalary terms
 id: aidsfree_terms
 label: Aidsfree terms from D7 site
 migration_group: aidsfree_terms

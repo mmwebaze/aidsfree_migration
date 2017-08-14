@@ -1,0 +1,1 @@
+SELECT n.nid, n.type, fdb.entity_type, fdb.bundle, fdb.entity_id FROM node n INNER JOIN field_data_body fdb ON (n.nid = fdb.entity_id) LIMIT 10

@@ -49,6 +49,10 @@ function aidsfree_migration_drush_command() {
     'description' => 'creates body field for node types migrated from d7.',
     'aliases' => ['ambf'],
   ];
+  $items['aidsfree_migration-create-node-type'] = [
+    'description' => 'creates a node type.',
+    'aliases' => ['amnt']
+  ];
 
   return $items;
 }
@@ -69,5 +73,27 @@ function drush_aidsfree_migration_create_body_field(){
       ])->save();
       //var_dump($nodeType->id(). ' has no body field');
     }
+  }
+}
+
+function drush_aidsfree_migration_create_node_type(){
+  /*\Drupal\node\Entity\NodeType::create([
+    'name' => 'Chemistry',
+    'type' => 'chemisty',
+    'description' => 'Custom node type to display molecular modules.'
+  ])->save();
+
+  FieldConfig::create([
+    'field_name' => 'body',
+    'entity_type' => 'node',
+    'status' => TRUE,
+    'bundle' => 'chemisty',
+    'label' => 'body',
+    'field_type' => 'text_long',
+    'widget' => []
+  ])->save();*/
+  $nodeTypes = list_node_types();
+  if (!in_array('aboutgdfgdg', $nodeTypes)){
+    throw new \Drupal\aidsfree_migration\Exception\MissingNodeTypeException('about');
   }
 }

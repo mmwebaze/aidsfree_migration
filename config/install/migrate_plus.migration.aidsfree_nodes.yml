@@ -1,109 +1,41 @@
-# Migration configuration for about content.
+# Migration configuration for nodes
 id: aidsfree_nodes
 label: Aidsfree nodes from D7 site
 migration_group: aidsfree_nodes
 migration_dependencies: {}
 source:
-  plugin: url
-  data_fetcher_plugin: http
-  data_parser_plugin: json
-  urls: http://aidsfree.prod.dd:8080/node.json
-  item_selector: list
-  fields:
-    -
-      name: nid
-      label: 'nid'
-      selector: nid
-    -
-      name: title
-      label: 'title'
-      selector: title
-    -
-      name: vid
-      label: 'vid'
-      selector: vid
-    -
-      name: type
-      label: 'type'
-      selector: type
-    -
-      name: promote
-      label: 'promote'
-      selector: promote
-    -
-      name: status
-      label: 'status'
-      selector: status
-    -
-      name: url
-      label: 'url'
-      selector: url
-    -
-      name: edit_url
-      label: 'edit url'
-      selector: edit_url
-    -
-      name: body_value
-      label: 'body'
-      selector: body/value
-#    -
-#      name: body_value
-#      label: 'value'
-#      selector: body
-    -
-      name: body_summary
-      label: 'summary'
-      selector: body/summary
-    -
-      name: body_format
-      label: 'format'
-      selector: body/format
-    -
-      created: created
-      label: 'created'
-      selector: created
-    -
-      changed: changed
-      label: 'changed'
-      selector: changed
-
-  ids:
-    nid:
-      type: integer
+  plugin: aidsfree_nodes_sql
 destination:
   plugin: entity:node
 process:
+  nid: nid
+  vid: vid
+  bundle: type
   #type: type
   type:
     plugin: node_body_field_create
     source: type
   title: title
-  nid: nid
-  vid: vid
-  url: url
-  edit_url: edit_url
-  uid:
-    plugin: default_value
-    default_value: 1
-  type: type
   langcode:
-    plugin: default_value
-    default_value: en
+      plugin: default_value
+      default_value: en
+  title: title
+  uid: uid
   status: status
+  created: created
+  changed: changed
+  comment: comment
   promote: promote
   sticky:
     plugin: default_value
     default_value: 0
-  title: title
-  created: created
-  changed: changed
-  bundle: type
+  tnid: tnid
+  translate: translate
   'body/value': body_value
     #plugin: node_body
     #source: body_value
   'body/summary': body_summary
   'body/format': body_format
-
 dependencies:
   module:
     - node
