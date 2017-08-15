@@ -31,7 +31,6 @@ class ParagraphType extends SqlBase{
     ];
   }
   public function query(){
-    echo 'hmmmm';
     $query =  $this->select('paragraphs_bundle', 'pb')
       ->fields('pb', array_keys($this->fields()));
     return $query;

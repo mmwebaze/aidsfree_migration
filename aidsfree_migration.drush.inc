@@ -18,6 +18,16 @@ function list_node_types(){
   }
   return $types;
 }
+
+function list_paragraph_types(){
+  $paragraphs = [];
+  $paragraphTypes = \Drupal\paragraphs\Entity\ParagraphsType::loadMultiple();
+  foreach ($paragraphTypes as $paragraph){
+    array_push($paragraphs, $paragraph->id());
+  }
+  return $paragraphs;
+}
+
 function add_field_body($type){
   $types = [];
   $nodeTypes =  \Drupal\node\Entity\NodeType::loadMultiple();
@@ -44,6 +54,7 @@ function add_field_body($type){
   }
   //echo count($types);
 }
+
 function aidsfree_migration_drush_command() {
   $items['aidsfree_migration-create-body-field'] = [
     'description' => 'creates body field for node types migrated from d7.',
@@ -52,6 +63,10 @@ function aidsfree_migration_drush_command() {
   $items['aidsfree_migration-create-node-type'] = [
     'description' => 'creates a node type.',
     'aliases' => ['amnt']
+  ];
+  $items['aidsfree_migration-create-paragraph-field'] = [
+    'description' => 'creates a paragraph field.',
+    'aliases' => ['ampf']
   ];
 
   return $items;
@@ -71,29 +86,41 @@ function drush_aidsfree_migration_create_body_field(){
         'field_type' => 'text_long',
         'widget' => []
       ])->save();
-      //var_dump($nodeType->id(). ' has no body field');
     }
   }
 }
 
 function drush_aidsfree_migration_create_node_type(){
-  /*\Drupal\node\Entity\NodeType::create([
-    'name' => 'Chemistry',
-    'type' => 'chemisty',
-    'description' => 'Custom node type to display molecular modules.'
+  var_dump(list_paragraph_types());
+}
+function drush_aidsfree_migration_create_paragraph_field(){
+  //$paragraphTypes = \Drupal\paragraphs\Entity\ParagraphsType::loadMultiple();
+
+  $parag = \Drupal\paragraphs\Entity\ParagraphsType::create([
+    'id' => 'physics',
+    'label' => 'physics',
   ])->save();
+  $pp_field_storage = FieldStorageConfig::create(
+    array(
+      'field_name' => 'pp_title_sira',
+      'entity_type' => 'paragraph',
+      'bundle' => 'physics',
+      'type' => 'text_long',
+      'settings' => [
+        'max_length' => '255',
+      ],
+      'cardinality' => 1,
+    )
+  )->save();
 
   FieldConfig::create([
-    'field_name' => 'body',
-    'entity_type' => 'node',
+    'field_name' => 'pp_title_sira',
+    //'field_storage' => $pp_field_storage,
+    'entity_type' => 'paragraph',
     'status' => TRUE,
-    'bundle' => 'chemisty',
-    'label' => 'body',
+    'bundle' => 'physics',
+    'label' => 'title',
     'field_type' => 'text_long',
     'widget' => []
-  ])->save();*/
-  $nodeTypes = list_node_types();
-  if (!in_array('aboutgdfgdg', $nodeTypes)){
-    throw new \Drupal\aidsfree_migration\Exception\MissingNodeTypeException('about');
-  }
+  ])->save();
 }

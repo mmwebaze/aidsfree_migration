@@ -8,7 +8,6 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
-use Drupal\node\Entity\NodeType;
 
 /**
  * Node body field creation plugin
@@ -20,7 +19,6 @@ use Drupal\node\Entity\NodeType;
  */
 class NodeBodyField extends ProcessPluginBase{
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property){
-    //$nodeTypes =  \Drupal\node\Entity\NodeType::loadMultiple();
 
     if (!MigrationUtil::checkNodeTypeExists($value)){
       throw new MissingNodeTypeException($value);

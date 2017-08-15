@@ -1,0 +1,35 @@
+# Migration configuration for paragraphs
+id: paragraphs_pack_content
+label: Aidsfree paragraphs_pack_content paragraphs from D7 site
+migration_group: aidsfree_paragraphs_pack_content
+migration_dependencies: {}
+source:
+  plugin: aidsfree_paragraphs_pack_content_sql
+destination:
+  plugin: entity:paragraph
+process:
+  #item_id: item_id
+  #field_name: field_name
+  type:
+    plugin: paragraph_field_create
+    source: bundle
+  entity_id: entity_id
+  #entity_type: entity_type
+  #achived:
+    #plugin: default_value
+    #default_value: 0
+  langcode:
+      plugin: default_value
+      default_value: en
+  #delta:
+    #plugin: default_value
+    #default_value: 0
+  'pp_body/value': pp_body_value
+  'pp_body/format': pp_body_format
+  field_class_value: field_class_value
+dependencies:
+  module:
+    - node
+  enforced:
+    module:
+      - aidsfree_migration
