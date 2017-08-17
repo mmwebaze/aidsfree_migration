@@ -1,0 +1,36 @@
+# Migration configuration for paragraphs
+id: paragraphs_pack_content_field_class
+label: Aidsfree paragraphs_pack_content field class content
+migration_group: aidsfree_paragraphs_pack_content for field_class field
+migration_dependencies:
+  required:
+    - paragraphs_pack_content
+source:
+  plugin: paragraph_field_class
+destination:
+  plugin: entity:paragraph
+process:
+  type: bundle
+  #entity_id: item_id
+  id:
+    plugin: migration_lookup
+    migration: paragraphs_pack_content
+    source: item_id
+    #-
+      #plugin: migration_lookup
+      #migration: paragraphs_pack_content
+      #source: item_id
+  langcode:
+      plugin: default_value
+      default_value: en
+  'field_class/value':
+      plugin: migration
+      migration: paragraphs_pack_content_field_class
+      source: field_class
+
+dependencies:
+  module:
+    - node
+  enforced:
+    module:
+      - aidsfree_migration

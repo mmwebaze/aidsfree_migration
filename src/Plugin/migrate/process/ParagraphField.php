@@ -19,8 +19,14 @@ class ParagraphField extends ProcessPluginBase{
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property){
     switch ($value){
       case 'paragraphs_pack_content':
+
         $fields = ['pp_body' => 'Content', 'field_class' => 'Class'];
-        MigrationUtil::createFields('paragraph', 'paragraphs_pack_content', $fields);
+        foreach ($fields as $field => $label){
+          $field = FieldConfig::loadByName('paragraph', 'paragraphs_pack_content', $field);
+          if (empty($field)){
+            MigrationUtil::createFields('paragraph', 'paragraphs_pack_content', $fields);
+          }
+        }
         break;
       case 'paragraphs_pack_node_list':
 
